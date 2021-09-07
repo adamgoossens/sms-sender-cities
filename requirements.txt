@@ -1,0 +1,5 @@
+sqlalchemy==1.4.*
+aiokafka==0.7.0
+nest_asyncio==1.5.*
+psycopg2==2.8.*
+twilio>=6.0.0
