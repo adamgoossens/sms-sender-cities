@@ -2,6 +2,8 @@ from twilio.rest import Client
 from aiokafka import AIOKafkaConsumer
 import asyncio, os, ast , sys
 import nest_asyncio
+import datetime
+
 nest_asyncio.apply()
 
 ## global variable :: setting this for kafka Consumer
@@ -33,10 +35,17 @@ async def consume():
             message = msg.value
             payload=ast.literal_eval(message.decode('utf-8'))
             plate = payload['event_vehicle_detected_plate_number']
-            when = payload['event_timestamp']
-            station = 'a123'
+            when = datetime.fromisoformat(payload['event_timestamp'])
+            when_time = f"{when.hour}:{when.minute}:{when.second}"
+            station_code = ''
 
-            sms_body = f"ALERT: Plate of interest {plate} detected at station {station} at {when}"
+            for k in payload.keys():
+                if not k.startswith('station'):
+                    continue
+
+                station_code = k.replace('station', '')
+
+            sms_body = f"ALERT: Plate of interest {plate} detected at station {station_code} at {when_time}"
             try:
                 if plate in watch_for_plates:
                     if twilio_is_on:
