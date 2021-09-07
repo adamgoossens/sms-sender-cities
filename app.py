@@ -35,7 +35,7 @@ async def consume():
             message = msg.value
             payload=ast.literal_eval(message.decode('utf-8'))
             plate = payload['event_vehicle_detected_plate_number']
-            when = datetime.fromisoformat(payload['event_timestamp'])
+            when = datetime.datetime.fromisoformat(payload['event_timestamp'])
             when_time = f"{when.hour}:{when.minute}:{when.second}"
             station_code = ''
 
