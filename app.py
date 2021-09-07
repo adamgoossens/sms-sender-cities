@@ -34,6 +34,7 @@ async def consume():
             payload=ast.literal_eval(message.decode('utf-8'))
             plate = payload['event_vehicle_detected_plate_number']
             when = payload['event_timestamp']
+            station = 'a123'
 
             sms_body = f"ALERT: Plate of interest {plate} detected at station {station} at {when}"
             try:
@@ -46,6 +47,7 @@ async def consume():
                     print(f"Detected plate of interest: {plate}")
                     print(f"Is Twilio on? f{twilio_is_on}")
                     print(f"Sent SMS to f{anon_dest_number} from f{anon_source_number}: 'f{sms_body}'")
+                    print(payload)
                     print("===============================================")
                 else:
                     print("Plate {} not of interest.".format(plate))
