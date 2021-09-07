@@ -34,6 +34,10 @@ async def consume():
         async for msg in kafkaConsumer:
             message = msg.value
             payload=ast.literal_eval(message.decode('utf-8'))
+            if 'reason' in payload:
+                # failed
+                continue
+
             plate = payload['event_vehicle_detected_plate_number']
             when = datetime.datetime.fromisoformat(payload['event_timestamp'])
             when_time = f"{when.hour}:{when.minute}:{when.second}"
