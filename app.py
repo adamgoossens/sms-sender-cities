@@ -13,7 +13,7 @@ loop = asyncio.get_event_loop()
 TWILIO_CLIENT_ID = os.getenv('TWILIO_CLIENT_ID')
 TWILIO_CLIENT_KEY = os.getenv('TWILIO_CLIENT_KEY')
 TWILIO_DESTINATION_NUMBER = os.getenv('TWILIO_DESTINATION_NUMBER')
-TWILIO_FROM_NUMBER = os.getenv('TWILIO_SOURCE_NUMBER')
+TWILIO_FROM_NUMBER = os.getenv('TWILIO_FROM_NUMBER')
 
 twilio_is_on = os.getenv('TWILIO_ENABLED', 'false') != 'false'
 
@@ -39,7 +39,7 @@ async def consume():
             try:
                 if plate in watch_for_plates:
                     if twilio_is_on:
-                        client.messages.create(to=TWILIO_DESTINATION_NUMBER,
+                        twilio.messages.create(to=TWILIO_DESTINATION_NUMBER,
                                                from_=TWILIO_FROM_NUMBER,
                                                body=sms_body)
                     print("===============================================")
