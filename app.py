@@ -17,7 +17,7 @@ TWILIO_FROM_NUMBER = os.getenv('TWILIO_FROM_NUMBER')
 
 twilio_is_on = os.getenv('TWILIO_ENABLED', 'false') != 'false'
 
-watch_for_plates = ["2216E06", "S7JDV", "LCA2555"]
+watch_for_plates = ["G526JHD", "CPAG"]
 
 anon_source_number = TWILIO_FROM_NUMBER[0:3] + "..." + TWILIO_FROM_NUMBER[-3:]
 anon_dest_number = TWILIO_DESTINATION_NUMBER[0:3] + "..." + TWILIO_DESTINATION_NUMBER[-3:]
@@ -45,8 +45,8 @@ async def consume():
                                                body=sms_body)
                     print("===============================================")
                     print(f"Detected plate of interest: {plate}")
-                    print(f"Is Twilio on? f{twilio_is_on}")
-                    print(f"Sent SMS to f{anon_dest_number} from f{anon_source_number}: 'f{sms_body}'")
+                    print(f"Is Twilio on? {twilio_is_on}")
+                    print(f"Sent SMS to {anon_dest_number} from {anon_source_number}: '{sms_body}'")
                     print(payload)
                     print("===============================================")
                 else:
